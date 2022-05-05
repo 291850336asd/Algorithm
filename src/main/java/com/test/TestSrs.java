@@ -25,7 +25,7 @@ public class TestSrs {
 //        String s = sendDoGet("http://192.168.5.46:1985/api/v1/streams/", "");
 //        System.out.println(s);
 
-        Process process = Runtime.getRuntime().exec("wmic process where caption=\"ffmpeg.exe\" get ProcessId, CommandLine");
+        Process process = Runtime.getRuntime().exec("wmic process where caption=\"ffmpeg.exe\" get ProcessId, CommandLine,UserModeTime");
         int status = process.waitFor();
 
         System.out.println(status);
@@ -38,7 +38,7 @@ public class TestSrs {
         do{
             line = br.readLine();
             if(line != null){
-                if(line.contains("ffmpeg") && line.contains("on")){
+                if(line.contains("ffmpeg") && line.contains("live")){
                     String s = line.replaceAll("  ", " ")
                             .replaceAll("  ", " ")
                             .replaceAll("  ", " ")

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mapper.DeviceDao">
+  <resultMap id="BaseResultMap" type="com.test.model.Device">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+     id,
+     state
+  </sql>
+  <select id = "getList"  resultMap="BaseResultMap">
+  SELECT
+  <include refid="Base_Column_List" />
+  FROM
+  tb_eqp_device_info
+  </select>
+
+</mapper>

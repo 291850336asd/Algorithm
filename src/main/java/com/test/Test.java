@@ -36,12 +36,28 @@ public class Test {
 //            e.printStackTrace();
 //        }
 
-
-        int min = Integer.MIN_VALUE;
-        System.out.println(min);
+        byte[] rootType = new byte[18];
+        int itemRole =  Integer.parseInt("40") -1;
+        extracted(rootType, 1);
     }
 
-
+    private static void extracted(byte[] rootType, int itemRole) {
+        if (itemRole < 4) {
+            for (int i = 0; i < 4; i++) {
+                if (i == itemRole) {
+                    rootType[0] |= (0x01 << i);
+                }
+            }
+        } else {
+            for (int i = 4; i < 42; i++) {
+                if (i == itemRole) {
+                    int index = ((i - 4) / 8) + 1;
+                    int iBitNum = (i - 4) % 8;
+                    rootType[index] |= (0x01 << iBitNum);
+                }
+            }
+        }
+    }
 
 
 //    static public class AA {

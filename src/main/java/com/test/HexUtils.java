@@ -3,8 +3,6 @@ package com.test;
 public class HexUtils {
 
     public static void main(String[] args)  throws Exception{
-
-
         String mmm = "安全帽检测NEW";
         String eeew = "192.168.1.13-0";
         String bbbb = "895B68513D5EC0684B6D4E0045005700";

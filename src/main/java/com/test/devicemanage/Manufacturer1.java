@@ -1,2 +1,4 @@
-package com.test.devicemanage;public class Manufacturer1 {
+package com.test.devicemanage;
+
+public class Manufacturer1 {
 }

@@ -1,14 +1,57 @@
 package com.test;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import java.io.*;
+import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Test {
+public class Test implements Runnable{
+    ScheduledExecutorService es = Executors.newScheduledThreadPool(10);
+    BlockingDeque<String> queue = new LinkedBlockingDeque<>(2000);
+
+    public Test(){
+        new Thread(this).start();
+    }
+
+    @Override
+    public void run() {
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                es.scheduleWithFixedDelay(new Runnable(){
+                    public void run() {
+                        System.out.println(queue.size());
+                        queue.poll();
+
+                        System.out.println(queue.size());
+                    }
+                }, 0, 100, TimeUnit.MILLISECONDS);
+
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    queue.offer("1");
+
+                    try {
+                        Thread.sleep(1000);
+                    }catch (Exception e){
+
+                    }
+                }
+            }
+        }).start();
+    }
 
     public static void main(String[] args) {
 //        aa();
@@ -28,17 +71,50 @@ public class Test {
 //        System.out.println(JSON.toJSONString(a));
 //        System.out.println(System.currentTimeMillis()/1000 + 120);
 //        System.out.println(gg());
-
-
+//        System.out.println(ByteOrder.nativeOrder());
 //        try {
 //            Runtime.getRuntime().exec("D:\\ffmpeg-master-latest-win64-gpl\\nircmd\\nircmd.exe elevate ffmpeg -rtsp_transport tcp -i rtsp://admin:1q2w3e4r@192.168.5.20:554/Streaming/tracks/601?starttime=20220406t222222z -c:a copy -f flv rtmp://127.0.0.1/live/mystrea11");
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+//        System.out.println(toBinary(10));
+//        System.out.println(toBinary(16));
+//        byte[] rootType = new byte[18];
+//        int itemRole =  Integer.parseInt("40") -1;
+//        extracted(rootType, 1);
 
-        byte[] rootType = new byte[18];
-        int itemRole =  Integer.parseInt("40") -1;
-        extracted(rootType, 1);
+
+        System.out.println("192.168.5.0".hashCode()%5);
+        System.out.println("192.168.5.1".hashCode()%5);
+        System.out.println("192.168.5.2".hashCode()%5);
+        System.out.println("192.168.5.3".hashCode()%5);
+        System.out.println("192.168.5.4".hashCode()%5);
+        System.out.println("192.168.5.5".hashCode()%5);
+        System.out.println("192.168.5.6".hashCode()%5);
+        System.out.println("192.168.5.7".hashCode()%5);
+        System.out.println("192.168.5.8".hashCode()%5);
+        System.out.println("192.168.5.9".hashCode()%5);
+        System.out.println("----------------------------");
+        System.out.println("192.168.5.11".hashCode()%5);
+        System.out.println("192.168.5.12".hashCode()%5);
+        System.out.println("192.168.5.13".hashCode()%5);
+        System.out.println("192.168.5.14".hashCode()%5);
+        System.out.println("192.168.5.15".hashCode()%5);
+        System.out.println("192.168.5.16".hashCode()%5);
+        System.out.println("192.168.5.17".hashCode()%5);
+        System.out.println("192.168.5.18".hashCode()%5);
+        System.out.println("192.168.5.19".hashCode()%5);
+        System.out.println("192.168.5.10".hashCode()%5);
+
+    }
+
+    public static String toBinary(int num) {
+        String str = "";
+        while (num != 0) {
+            str = (num&0xff) % 2 + str;
+            num = (num&0xff)  / 2;
+        }
+        return str;
     }
 
     private static void extracted(byte[] rootType, int itemRole) {

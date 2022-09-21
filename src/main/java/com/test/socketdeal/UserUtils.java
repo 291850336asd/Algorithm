@@ -1,4 +1,4 @@
-package com.test;
+package com.test.socketdeal;
 
 
 import java.io.IOException;
@@ -8,21 +8,20 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-public class TestSocket {
-    public static void main(String[] args) {
-        int success = 0;
-        for (int i = 0; i < 100; i++) {
-            long time1 = System.currentTimeMillis();
-            String host = "192.168.5.226";
-            int port = 10001;
-            String msg=getBytes3("11 04 0000 0002");
-            String send = send(msg, host, port);
-            if(send != null && send.length() > 0){
-                System.out.println(++success + "----" + (System.currentTimeMillis() - time1) + "----" + send);
-            }
+public class UserUtils {
 
-        }
-        close();
+    static Socket clientSocket = null;
+    static InputStream is = null;
+    static OutputStream os = null;
+    static PrintWriter pw = null;
+
+    public static void main(String[] args) {
+        getTempOrHum("");
+    }
+
+    public static String getTempOrHum(String deviceInfo) {
+        // 从设备获取温湿度
+        return DeviceManageUtils.DeviceGiveMeInfo(deviceInfo);
     }
 
     public static void close(){
@@ -52,7 +51,6 @@ public class TestSocket {
         }
     }
 
-
     public static String getBytes3(String crc){
         byte[] bytes=new byte[6];
         bytes[0]=(byte) Integer.parseInt(crc.substring(0,2),16);
@@ -71,20 +69,9 @@ public class TestSocket {
 
         return crc+" "+c4.substring(2)+c4.substring(0,2);
     }
-    static Socket clientSocket = null;
-    static InputStream is = null;
-    static OutputStream os = null;
-    static PrintWriter pw = null;
-    public static String send(String msg, String host,int port) {
+
+    public static String send(String msg) {
         String strReturn = null;
-        if(clientSocket == null){
-            clientSocket = new Socket();
-            try {
-                clientSocket.connect(new InetSocketAddress(host, port), 2000);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         try {
             //1.建立客户端socket连接，指定服务器位置及端口
 
@@ -123,6 +110,18 @@ public class TestSocket {
         }
         return strReturn;
     }
+
+    private static void openSocket(String host, int port) {
+        if(clientSocket == null){
+            clientSocket = new Socket();
+            try {
+                clientSocket.connect(new InetSocketAddress(host, port), 2000);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static byte[] hexStrToBinaryStr(String hexString) {
         if (null == hexString || hexString.trim().length() == 0) {
             return null;
@@ -144,6 +143,7 @@ public class TestSocket {
         for(int i=0;i<crc.length()/2;i++){
             bytes[i]=(byte) Integer.parseInt(crc.substring(i*2,i*2+2),16);
         }
+
         String c4=getCRC(bytes);
         if(c4.length()<4){
             while (c4.length()<4){

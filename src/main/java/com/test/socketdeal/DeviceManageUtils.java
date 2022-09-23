@@ -6,15 +6,24 @@ public class DeviceManageUtils {
         //1.命名获取
         String msg = getDeviceMsgFromUser(deviceInfo);
 
+
+        return DeviceMsgConvetrUserMsg(msg);
+
+
+
+    }
+
+    private static String DeviceMsgConvetrUserMsg(String msg) {
         //2.算法转换  生成设备可识别的命令
         String getDeviceRegiCmd = getDeivceKonwCMd(msg);
+
         //3.获取温湿度
         String getUserKnowInfo = getUserKnowCInfo(getDeviceRegiCmd);
         return getUserKnowInfo;
     }
 
     private static String getDeviceMsgFromUser(String deviceInfo) {
-        return DeviceInfo.ConstantsCmd.cmd_11;
+        return DeviceInfo1.ConstantsCmd.cmd_11;
     }
 
     private static String getUserKnowCInfo(String getDeviceRegiCmd) {

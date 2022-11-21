@@ -1,24 +1,48 @@
 package com.test;
 
+import java.io.UnsupportedEncodingException;
+
 public class HexUtils {
 
     public static void main(String[] args)  throws Exception{
-        String mmm = "安全帽检测NEW";
-        String eeew = "192.168.1.13-0";
-        String bbbb = "895B68513D5EC0684B6D4E0045005700";
-        String ccccc = "3100390032002E003100360038002E0031002E00310033002D003000";
-        String chatset = "UTF-16LE";//UTF-8//GBK//Unicode//UTF-16LE
 
-        //编码
-        String aaa = string2HexUTF16LE(mmm);
-        System.out.println(aaa);
 
-        //解码
-        String wqqqq = hexUTF16LE2String(bbbb);
-        System.out.println(wqqqq);
+//        System.out.println(JOSN);
+
+//        String mmm = "安全帽检测NEW";
+//        String eeew = "192.168.1.13-0";
+//        String bbbb = "895B68513D5EC0684B6D4E0045005700";
+//        String ccccc = "3100390032002E003100360038002E0031002E00310033002D003000";
+//        String chatset = "UTF-16LE";//UTF-8//GBK//Unicode//UTF-16LE
+//
+//        //编码
+//        String aaa = string2HexUTF16LE(mmm);
+//        System.out.println(aaa);
+//
+//        //解码
+//        String wqqqq = hexUTF16LE2String(bbbb);
+//        System.out.println(wqqqq);
 
     }
 
+    public static String b2sVersion2(byte[] b)  {
+        int len = 0;
+        byte[] temp = b;
+        for(int i=0;i<b.length;i++){
+            if(b[i] == -1){
+                temp[i] = 0;
+            }else{
+                temp[i] = b[i];
+            }
+            len++;
+        }
+        try {
+            return new String(temp, 0, len,"gbk").trim();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
 
     /**

@@ -13,7 +13,13 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+
     <dependencies>
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.15</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.bytedeco</groupId>-->
 <!--            <artifactId>javacv-platform</artifactId>-->
@@ -110,6 +116,5 @@
             <artifactId>tess4j</artifactId>
             <version>4.4.0</version>
         </dependency>
-
     </dependencies>
 </project>

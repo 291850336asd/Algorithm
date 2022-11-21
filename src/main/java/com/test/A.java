@@ -23,7 +23,7 @@ public class A {
                 clientSocket.add(socket);
 
 
-//                send();
+                send();
                 new Thread(()->{
                     try {
                         InputStream is = socket.getInputStream();

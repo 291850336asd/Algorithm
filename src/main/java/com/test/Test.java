@@ -84,27 +84,7 @@ public class Test implements Runnable{
 //        extracted(rootType, 1);
 
 
-        System.out.println("192.168.5.0".hashCode()%5);
-        System.out.println("192.168.5.1".hashCode()%5);
-        System.out.println("192.168.5.2".hashCode()%5);
-        System.out.println("192.168.5.3".hashCode()%5);
-        System.out.println("192.168.5.4".hashCode()%5);
-        System.out.println("192.168.5.5".hashCode()%5);
-        System.out.println("192.168.5.6".hashCode()%5);
-        System.out.println("192.168.5.7".hashCode()%5);
-        System.out.println("192.168.5.8".hashCode()%5);
-        System.out.println("192.168.5.9".hashCode()%5);
-        System.out.println("----------------------------");
-        System.out.println("192.168.5.11".hashCode()%5);
-        System.out.println("192.168.5.12".hashCode()%5);
-        System.out.println("192.168.5.13".hashCode()%5);
-        System.out.println("192.168.5.14".hashCode()%5);
-        System.out.println("192.168.5.15".hashCode()%5);
-        System.out.println("192.168.5.16".hashCode()%5);
-        System.out.println("192.168.5.17".hashCode()%5);
-        System.out.println("192.168.5.18".hashCode()%5);
-        System.out.println("192.168.5.19".hashCode()%5);
-        System.out.println("192.168.5.10".hashCode()%5);
+      
 
     }
 

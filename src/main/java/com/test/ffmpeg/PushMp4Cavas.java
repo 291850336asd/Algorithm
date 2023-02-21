@@ -1,8 +1,12 @@
 package com.test.ffmpeg;
 
 import org.bytedeco.ffmpeg.avformat.AVFormatContext;
+import org.bytedeco.ffmpeg.avutil.Callback_Pointer_int_BytePointer_Pointer;
+import org.bytedeco.ffmpeg.avutil.LogCallback;
 import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.ffmpeg.global.avutil;
+import org.bytedeco.javacpp.BytePointer;
+import org.bytedeco.javacpp.Pointer;
 import org.bytedeco.javacv.*;
 import org.openjdk.jol.info.GraphLayout;
 import sun.misc.BASE64Encoder;
@@ -21,10 +25,7 @@ import java.nio.*;
 import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 
@@ -35,16 +36,14 @@ public class PushMp4Cavas {
 //    private static final String RTSP_PATH = "rtsp://admin:1q2w3e4r@192.168.5.29/h264/ch1/main/av_stream";
 //private static final String RTSP_PATH = "rtsp://admin:1q2w3e4r@192.168.5.165/tcp/av0_0";
 //    private static final String RTSP_PATH = "rtsp://192.168.5.174:554/user=admin&password=123456&channel=1&stream=0.sdp";
-    private static final String RTSP_PATH = "rtsp://admin:1q2w3e4r@192.168.5.26/h264/ch1/main/av_stream";
+    private static final String RTSP_PATH = "rtsp://admin:1q2w3e4r@192.168.5.27/h264/ch1/main/av_stream";
 //    private static final String RTSP_PATH = "rtsp://admin:1q2w3e4r@192.168.5.18:554/h264/ch1/main/av_stream";
 
-
-    private static BlockingQueue<byte[]> blockingQueue = new LinkedBlockingQueue<>(20);
     /**
      * SRS的推流地址
      */
     private static final String SRS_PUSH_ADDRESS = "rtmp://192.168.5.46/live/hw1";
-
+    static FFmpegLogCallback callback = new FFmpegLogCallback();
 
     private static AtomicLong atomicLong = new AtomicLong();
     /**
@@ -55,9 +54,11 @@ public class PushMp4Cavas {
      */
     public static void grabAndPush(String sourceFilePath, String PUSH_ADDRESS) throws Exception {
         // ffmepg日志级别
-        System.out.println("grabAndPush");
-        avutil.av_log_set_level(avutil.AV_LOG_ERROR);
+        avutil.av_log_set_level(avutil.AV_LOG_DEBUG);
+
+        avutil.av_log_set_callback(callback);
         FFmpegLogCallback.set();
+
         // 实例化帧抓取器对象，将文件路径传入
         G grabber = new G(sourceFilePath);
         grabber.setOption("rtsp_transport","tcp");
@@ -101,60 +102,26 @@ public class PushMp4Cavas {
         int audioFrameNum = 0;
         int dataFrameNum = 0;
 
-
-        Base64.Encoder encoder = Base64.getEncoder();
-        Java2DFrameConverter java2DFrameConverter = new Java2DFrameConverter();
-        long time = System.currentTimeMillis();
         // 持续从视频源取帧
         int i = 0;
-
+        BlockingQueue<Frame> list = new ArrayBlockingQueue<Frame>(100);
         int errorCount=0;
-        while (true ) {
-          try {
-              frame=grabber.grabImage();
-              if(frame == null || null == frame.image){
-                  errorCount ++;
-                  if(errorCount > 200){
-                      System.out.println(atomicLong.incrementAndGet());
-                      break;
-                  }
-                  continue;
-              }
-              errorCount=0;
-//            videoTS = 1000 * (System.currentTimeMillis() - startTime);
-//
-//            // 时间戳
-//            recorder.setTimestamp(videoTS);
-
-              // 有图像，就把视频帧加一
-//            System.out.println(frame.keyFrame);
-              // 取出的每一帧，都推送到SRS
-//            if(i % 5== 0){
-//              if(blockingQueue.size() > 18){
-//                  blockingQueue.clear();
-//              }
-
-              ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-              BufferedImage bi = java2DFrameConverter.getBufferedImage(frame);
-              ImageIO.write(bi, "jpg", outputStream);
-              byte[] poll = outputStream.toByteArray();
-              if(poll != null){
-                  blockingQueue.offer(poll,10, TimeUnit.MILLISECONDS);
-              } else {
-                  System.out.println("0");
-              }
-
-////                String imageBase64 = "data:image/jpg;base64," + encoder.encodeToString(outputStream.toByteArray());
-              outputStream.flush();
-              java2DFrameConverter.close();
-              bi.getGraphics().dispose();
-              frame.close();
-              outputStream.close();
-
-          }catch (Exception e){
-              e.printStackTrace();
-          }
-        }
+       try {
+           while (true ) {
+               try {
+                   frame=grabber.grabFrame();
+//              frame.close();
+                   list.add(frame);
+                   if(frame.keyFrame){
+                       System.out.println("aa");
+                   }
+               }catch (Exception e){
+                   e.printStackTrace();
+               }
+           }
+       }catch (Exception e){
+           e.printStackTrace();
+       }
         grabber.close();
 //        log.info("推送完成，视频帧[{}]，音频帧[{}]，数据帧[{}]，耗时[{}]秒",
 //                videoFrameNum,
@@ -164,58 +131,6 @@ public class PushMp4Cavas {
 
     }
 
-    private static void openSocket(){
-        new Thread(()->{
-            List<Socket> clientSocket = new CopyOnWriteArrayList<>();
-            ServerSocket server = null;
-            new Thread(()->{
-                while (true){
-
-                    try {
-                        byte[] poll = blockingQueue.poll(10, TimeUnit.MILLISECONDS);
-                        if(poll!= null){
-                            System.out.println("1111");
-                        } else {
-                            System.out.println("0000");
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    send(clientSocket);
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-            while (true) {
-                try {
-                    if (server == null) {
-                        server = new ServerSocket(8888);
-                    }
-                    Socket socket = server.accept();
-                    clientSocket.add(socket);
-
-
-
-
-                } catch (IOException e) {
-                    try {
-                        if (server != null) {
-                            server.close();
-                        }
-                        Thread.sleep(1000);
-                    } catch (Exception e1) {
-                    } finally {
-                        server = null;
-                    }
-                }
-            }
-
-
-        }).start();
-    }
 
     /**
      * 读取rtsp，推送到SRS服务器
@@ -420,7 +335,6 @@ public class PushMp4Cavas {
         }
     }
     public static void main(String[] args) throws Exception {
-        openSocket();
         while (true){
             PushMp4Cavas.grabAndPush(RTSP_PATH, SRS_PUSH_ADDRESS);
         }

@@ -6,9 +6,7 @@ import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.ffmpeg.global.avutil;
 import org.bytedeco.javacv.*;
 
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 
 public class PushMp4 {
@@ -36,7 +34,8 @@ public class PushMp4 {
     public static void grabAndPush(String sourceFilePath, String PUSH_ADDRESS) throws Exception {
         // ffmepg日志级别
         System.out.println("grabAndPush");
-        avutil.av_log_set_level(avutil.AV_LOG_ERROR);
+        avutil.av_log_set_level(avutil.AV_LOG_DEBUG);
+
         FFmpegLogCallback.set();
         // 实例化帧抓取器对象，将文件路径传入
         FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(sourceFilePath);
@@ -125,6 +124,7 @@ public class PushMp4 {
         // 发送完一帧后sleep的时间，不能完全等于(1000/frameRate)，不然会卡顿，
         // 要更小一些，这里取八分之一
         interVal/=8;
+
 
         // 持续从视频源取帧
         while (null!=(frame=grabber.grabImage()) ) {

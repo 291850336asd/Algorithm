@@ -4,6 +4,7 @@ import cn.hutool.core.date.CalendarUtil;
 import com.alibaba.fastjson.JSON;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,8 +14,21 @@ import java.util.HashMap;
 
 public class TestA {
 
+    public static class A{
+        private byte[] aa;
+
+        public byte[] getAa() {
+            return aa;
+        }
+
+        public void setAa(byte[] aa) {
+            this.aa = aa;
+        }
+    }
 
     public static void main(String[] args) {
+        A a = JSON.parseObject("{\"aa\":\"MTcwMDM4NDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
+        System.out.println(b2ss(a.getAa()));
 //        HashMap<String, String> hashMap = new HashMap<>();
 //        hashMap.put("ss","sdsd121");
 //        System.out.println(JSON.toJSONString(hashMap));
@@ -43,15 +57,15 @@ public class TestA {
 //            e.printStackTrace();
 //        }
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = null;
-        try
-        {
-            date = format.parse("2022-07-18T09:35:30.000Z".replace("T"," ").substring(0,19));
-        } catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date date = null;
+//        try
+//        {
+//            date = format.parse("2022-07-18T09:35:30.000Z".replace("T"," ").substring(0,19));
+//        } catch (ParseException e)
+//        {
+//            e.printStackTrace();
+//        }
     }
 
 

@@ -15,6 +15,14 @@ import java.util.HashMap;
 public class TestA {
 
     public static class A{
+
+        public static final String hello = "sdsdsdsd";
+        public static final  int i = 10;
+        public static final  A a = new A();
+        static {
+            System.out.println("bbbbbbbbb");
+        }
+
         private byte[] aa;
 
         public byte[] getAa() {
@@ -27,8 +35,9 @@ public class TestA {
     }
 
     public static void main(String[] args) {
-        A a = JSON.parseObject("{\"aa\":\"MTcwMDM4NDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
-        System.out.println(b2ss(a.getAa()));
+        System.out.println(A.a);
+//        A a = JSON.parseObject("{\"aa\":\"MTcwMDM4NDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
+//        System.out.println(b2ss(a.getAa()));
 //        HashMap<String, String> hashMap = new HashMap<>();
 //        hashMap.put("ss","sdsd121");
 //        System.out.println(JSON.toJSONString(hashMap));

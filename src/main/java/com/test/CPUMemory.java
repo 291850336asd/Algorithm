@@ -110,16 +110,15 @@ public class CPUMemory {
 
 
 
-//        while (true){
-//            try{
-//
-//                System.out.println(cpuLoad()+2 + "---" + memoryLoad());
-//                getDiskInfo();
-//                Thread.sleep(1000);
-//            }catch (Exception e){
-//
-//            }
-//        }
+        while (true){
+            try{
+                System.out.println(cpuLoad()+2 + "---" + memoryLoad());
+                getDiskInfo();
+                Thread.sleep(5000);
+            }catch (Exception e){
+
+            }
+        }
     }
 
 

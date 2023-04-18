@@ -2,27 +2,20 @@ package com.test;
 
 import cn.hutool.core.date.CalendarUtil;
 import com.alibaba.fastjson.JSON;
+import sun.reflect.Reflection;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 public class TestA {
-
+    public static int b= 1;
     public static class A{
-
         public static final String hello = "sdsdsdsd";
-        public static final  int i = 10;
-        public static final  A a = new A();
-        static {
-            System.out.println("bbbbbbbbb");
-        }
-
+        public static final   A a = new A();
         private byte[] aa;
 
         public byte[] getAa() {
@@ -32,12 +25,36 @@ public class TestA {
         public void setAa(byte[] aa) {
             this.aa = aa;
         }
+
+        static {
+            System.out.println("bbbbbbbbb");
+        }
     }
 
-    public static void main(String[] args) {
-        System.out.println(A.a);
-//        A a = JSON.parseObject("{\"aa\":\"MTcwMDM4NDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
-//        System.out.println(b2ss(a.getAa()));
+    public static int test(){
+        return b;
+    }
+
+
+    public static void main(String[] args) throws ClassNotFoundException {
+//        Calendar instance = Calendar.getInstance();
+//        // 操作时间
+//        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        instance.setTime(new Date(1679702209 * 1000L));
+//        instance.set(Calendar.HOUR_OF_DAY, instance.get(Calendar.HOUR_OF_DAY) - 8);
+//        String format = format1.format(instance.getTime());
+//        System.out.println(format);
+
+//        System.out.println(A.hello);
+//        test();
+//        Class.forName(A.class.getName());
+//        A a = JSON.parseObject("{\"aa\":\"MTIzNDU2AAA4Ywh4fwAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
+//        A a = JSON.parseObject("{\"aa\":\"MDQyOTE4AA4YAH4fwAAAAAAAAAAAAAAAAAAAAEAAAA=\"}", A.class);
+        A a = JSON.parseObject("{\"aa\":\"MDIxNzkzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
+//        A a = JSON.parseObject("{\"aa\":\"r0alcAARsk0ourjUuw90fA=\"}", A.class);
+//        A a = JSON.parseObject("{\"aa\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
+        System.out.println(b2ss(a.getAa()));
+        System.out.println(b2c(a.getAa()));
 //        HashMap<String, String> hashMap = new HashMap<>();
 //        hashMap.put("ss","sdsd121");
 //        System.out.println(JSON.toJSONString(hashMap));
@@ -76,7 +93,32 @@ public class TestA {
 //            e.printStackTrace();
 //        }
     }
+    public static String bytesToHexString(byte[] bArray) {
+        StringBuffer sb = new StringBuffer(bArray.length);
+        String sTemp;
+        for (int i = 0; i < bArray.length; i++) {
+            sTemp = Integer.toHexString(0xFF & bArray[i]);
+            if (sTemp.length() < 2) {
+                sb.append(0);
+            }
+            sb.append(sTemp.toUpperCase());
+        }
+        return sb.toString();
+    }
 
+    public static String b2c(byte b[]) {
+        int len = 0;
+        while (b.length>len&&b[len] != 0) {
+            len++;
+        }
+
+        try {
+            return new String(b, 0, len,"utf-8").trim();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
     public static byte[] strToByteArray(String str) {
         if (str == null) {

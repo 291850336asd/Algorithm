@@ -54,6 +54,13 @@ public class Test implements Runnable{
     }
 
     public static void main(String[] args) {
+//        byte[] bytes = "sds".getBytes(StandardCharsets.UTF_8);
+//        for (int i = 0; i < bytes.length; i++) {
+//            System.out.println(bytes[i]);
+//        }
+
+        System.out.println(new String(new byte[]{-26,-105,-96}));
+
 //        aa();
 //        System.out.println("----------------");
 //        bb();

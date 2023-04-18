@@ -1,0 +1,158 @@
+server:
+  port: 9000
+  servlet:
+    context-path: /bulletbox-service
+
+
+spring:
+  mvc: # 开启 mvc匹配后缀模式(兼容原平台功能)
+    contentnegotiation:
+      favor-path-extension: true
+    pathmatch:
+      use-suffix-pattern: true
+  servlet:
+    # mvc文件上传 配置
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+  # 系统时间 配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  # rabbitmq 配置
+  rabbitmq:
+    host: 127.0.0.1
+    listener:
+      direct:
+        acknowledge-mode: manual
+    username: guest
+    password: guest
+    port: 5672
+    virtual-host: /
+  # 数据库 druid连接池 配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/bulletbox_db_wujing?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+#      url: jdbc:mysql://192.168.5.64:3306/bulletbox_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: 123456
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      # Oracle需要打开注释
+      #validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet: # Druid 可视化监控
+        enabled: true
+        url-pattern: /druid/*
+        #login-username: admin
+        #login-password: admin
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+
+## mybatis 配置
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: # com.beitai.smartsite.alarm.entity
+# 打印sql日志
+logging:
+  level:
+    com.beitai.smartsite.alarm.api.dao : debug
+
+# dubbo 配置
+dubbo:
+  application:
+    name: bulletbox
+    qos-enable: false
+  scan:
+    base-packages: com.beitai.bulletbox
+  consumer:
+    check: false
+    timeout: 1000
+  protocol:
+    name: dubbo
+    port: 20990
+  registry:
+    address: 127.0.0.1:2181
+    protocol: zookeeper
+
+# 云平台 配置
+beitai:
+  beta: 2 #2 代表武警 1表示公安
+
+  url: /locker  # 对接省厅正式环境 /locker   对接省厅测试应用  /depot
+  HKConfig: false
+  encrypt:
+    noNeedEncry: /** # 不需要加密的路径
+    requestNoNeedEncry: /** # 请求不需要加密
+#    responseNoNeedEncry: /cc #返回不需要加密
+  # redis 配置
+  redis:
+    open: true
+    pool:
+      maxIdle: 300
+      minIdle: 100
+      maxTotal: 1000
+      maxWaitMillis: 2000
+    host: 127.0.0.1
+    port: 6379
+#    password: btzn123
+    timeout: 10000
+  # 权限校验 配置
+  sso:
+    level: 3 # 权限校验强度 0 强 1中 2弱 3检查
+    open: true # 开启权限校验
+#    excludePath: /druid/*,/storage/importExcel # 不拦截路径 多个使用","隔开
+#    excludePath: /druid/*,/storage/importExcel,/sip/account # 不拦截路径 多个使用","隔开
+    excludePath: /druid/*,/devicecamerastream/customstream,/storage/importExcel,/sip/account,/outBound/takegunapplication,/storage/getcabinetdetails,/bulletRecipients/returnApplyData,/approvalapply/insertApply,/bulletRecipients/gainAllGunAndBullet,/bulletRecipients/produceApprovalApply,/keyCabinet/updateKeyByDeviceNumber,/approvalapply/sendAlarm,/bulletuser/importExcel,/bulletRecipients/updateApplyStateById,/dutyManage/setDeviceDuty,/bulletuser/userImageUpload,/dutyManage/deviceSetDuty, /bulletuser/downLoadInstructions, /bulletuser/importExcel,/bulleteqpdevice/getState,/FjStorage/save,bulletInfomation/save,bulletInfomation/list,bulletInfomation/update,/bulletMqttReceiver/devicesRegister,/equipmentInformation/getEntranceGuardDevices,/equipmentInformation/getEntranceGuardDevice,/equipmentInformation/updateSip,/bulletMqttReceiver/wakeupPlayback,/bulletMaint/maintResultReport  # 不拦截路径 多个使用","隔开
+#     excludePath: /druid/*,/devicecamerastream/customstream,/storage/importExcel,/sip/account,/outBound/takegunapplication,/storage/getcabinetdetails,/bulletRecipients/returnApplyData,/approvalapply/insertApply,/bulletRecipients/gainAllGunAndBullet,/bulletRecipients/produceApprovalApply,/keyCabinet/updateKeyByDeviceNumber,/approvalapply/sendAlarm,/bulletuser/importExcel,/bulletRecipients/updateApplyStateById,/dutyManage/setDeviceDuty,/bulletuser/userImageUpload,/dutyManage/deviceSetDuty, /bulletuser/downLoadInstructions, /bulletuser/importExcel,/bulleteqpdevice/getState,/FjStorage/save,bulletInfomation/save,bulletInfomation/list,bulletInfomation/update,/bulletMqttReceiver/devicesRegister,/equipmentInformation/getEntranceGuardDevices  # 不拦截路径 多个使用","隔开
+    ##      pathPatterns: 指定拦截路径 多个使用","隔开 不配置则全部拦截 homestatistics:statistics homestatistics:statistics
+  # MQTT 配置
+  mqtt:
+    init: false
+    broker: tcp://47.104.133.136:1883
+    client_id: wjservice
+    user_name: admin
+    password: public
+    topic_filter: /register,/update,/alarm
+    currentPt: 3
+    topic:
+duty:
+  manage:
+    uri: 192.168.5.197
+
+    base-user: pwd_update_count
+
+hk:
+  upload: C:/sykean/file-app/
+
+sms:
+  roles: 2,3
+
+xinge:
+  open: 0
+
+chengdushuangliu:
+  open: 0
+
+shortMessage:
+  ip: 127.0.0.1
+
+#上报省厅报警类型配置
+upload:
+  alarmType: 12,非法开门

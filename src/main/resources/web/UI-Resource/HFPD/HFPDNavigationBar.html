@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<title></title>
+</head>
+<body>
+	<div  class="col-md-2 column">
+		<ul class="nav nav-pills nav-stacked">
+		  <li class="HFPDConfig" ><a href="/hikvision/hfpd/hfpdconfig">Config</a></li>
+		  <li class="HFPDSchedule" ><a href="/hikvision/hfpd/hfpdschedule">Schedule</a></li>
+		</ul>
+    </div> 
+    <script>
+	    $(document).ready(function(){
+			$('ul.nav > li').each(function(index, item){
+				var class_name = location.pathname.split('/')[2];
+				if($(this).hasClass(class_name)){
+					$(this).addClass("active").siblings().removeClass("active");
+				}
+			});
+		}); 
+	</script>  
+</body>
+</html>

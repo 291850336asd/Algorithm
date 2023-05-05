@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="/UI-Resource/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/UI-Resource/Utils/Css/ContainerCss.css" rel="stylesheet">
+    <script src="/UI-Resource/jquery-2.1.1/jquery.min.js"></script>
+    <script src="/UI-Resource/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<title>VehicleReAnalysis</title>
+</head>
+<body style="padding-top:50px;" onload="getVehicleReAnalysisAbility()">
+    <div>
+        <ul id="navigationBar"></ul>
+        <script>$("#navigationBar").load("/UI-Resource/MainPage/NavigationBar.html");</script>
+    </div>
+    <div>
+        <ul id="taskNavigationBar"></ul>
+        <script>$("#taskNavigationBar").load("/UI-Resource/Task/TaskNavigationBar.html");</script>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" >
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!--    Add the task form start      -->
+                        <form role="form" >
+                            <div class="checkbox">
+                                <label> <input type="checkbox" id="imageTypeCheckBox"
+                                    checked onclick="setImageType()">Use the URL to upload the image
+                                </label>
+                            </div>
+                            <div  class="divStyle" style=" width: 100%; height: 300px; ">
+                                <img id="picture"  style="background-image: url(); background-repeat: no-repeat;width: 98%; height: 250px;" />
+                                <input type="file" class="faceURLInputStyle"
+                                    style="width: 136px" id="pictureBinary" />
+                                <!--onchange="uploadPic('faceURL','picture')" -->
+                                <button type="button" class="btn btn-danger" disabled="disabled"  id="pictureBinaryBtn" style="margin-top:5px;" >
+                                    <span class="glyphicon glyphicon-folder-open"
+                                        aria-hidden="true"></span> Select a image
+                                </button>
+                            </div>
+                            <div class="divStyle">
+                                <label class="labelStyle" for="pictureUrl">pictureUrl <em
+                                    style="color: red">*</em></label> <input type="text" class="inputStyle"
+                                    id="pictureUrl" value="">
+                            </div>
+                            <div class="divStyle">
+                                   <label class="labelStyle" for="taskName">taskName <em
+                                       style="color: red">*</em>
+                                   </label> <input type="text" class="inputStyle" id="taskName"
+                                       value="VehicleTest1">
+                               </div>
+                            <div class="divStyle" style="height: 40px">
+                                <label  style="width: 25%;"><input name="algorithmType" type="radio" value="1"  checked onclick="getAlgorithmID()"/>algo 1</label> 
+                                <label  style="width: 25%;"><input name="algorithmType" type="radio" value="2"   onclick="getAlgorithmID()"/>algo 2</label> 
+                                <label  style="width: 25%;"><input name="algorithmType" type="radio" value="3"   onclick="getAlgorithmID()"/>algo 3</label>
+                            </div>
+                            <div class="divStyle">
+                                <label class="labelStyle" for="algorithmID">AlgorithmID
+                                    <em style="color: red">*</em>
+                                </label> <select id="algorithmID" name="algorithmID"
+                                    style="width: 150px; height: 30px;"></select>
+                            </div>
+                            <div class="divStyle">
+                                <label class="labelStyle" for="detectMode">detectMode <em
+                                    style="color: red">*</em>
+                                </label> <select id="detectMode" name="detectMode"
+                                    style="width: 150px; height: 30px;">
+                                    <option value="0">one picture multiple vehicles</option>
+                                    <option value="1">one picture one vehicles</option>
+                                    <option value="2">all detection mode</option>
+                                </select>
+                            </div>
+                            <div class="divStyle">
+                                <label class="labelStyle" for="taskPriority">taskPriority
+                                    <em style="color: red">*</em>
+                                </label> <input type="text" class="inputStyle" id="taskPriority"
+                                    value="50">
+                            </div>
+    
+                            <div class="divStyle">
+                                <label class="labelStyle" for="licenseID">licenseID </label> <input
+                                    type="text" class="inputStyle" id="licenseID" value="">
+                            </div>
+                            <div class="divStyle">
+                                <label class="labelStyle" for="licenseConfidence">confidence
+                                </label> <input type="text" class="inputStyle" id="licenseConfidence"
+                                    value="" placeholder="1~100">
+                            </div>
+                            <div class="divStyle">
+                                <label class="labelStyle" for=destinationType>dst.Type <em
+                                    style="color: red">*</em>
+                                </label> <select id="destinationType" name="destinationType"
+                                    style="width: 150px; height: 30px;">
+    <!--                                     <option value="VehicleServer">VehicleServer</option> -->
+    <!--                                     <option value="SDKUpload">SDKUpload</option> -->
+                                </select>
+                            </div>
+                            <div class="divStyle">
+                                <label class="labelStyle" for=destinationUrl>dst.Url <em
+                                    style="color: red">*</em>
+                                </label> <input type="text" class="inputStyle" id="destinationUrl"
+                                    value='{"topic":"BAYONET_VEHICLEPASS_TOPIC","url":"10.17.139.184:2181"}'>
+                            </div>
+                            <div class="divStyle">
+                                <label class="labelStyle" for=userName>userName 
+                                </label> <input type="text" class="inputStyle" id="userName"
+                                    value="admin">
+                            </div>
+                            <div class="divStyle">
+                                <label class="labelStyle" for=password>password 
+                                </label> <input type="text" class="inputStyle" id="password"
+                                    value="hik12345">
+                            </div>
+                            <div class="divStyle" style="text-align: right">
+                                <button type="button" id="btn_addVehicleReAnalysisTask"
+                                    class="btn btn-primary" onclick="uploadVehicleReAnalysisTask()">
+                                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>Submit
+                                </button>
+                            </div>
+                        </form>
+                        <!--     Add task form end     -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/UI-Resource/Task/VehicleReAnalysis.js"></script>
+</body>
+</html>

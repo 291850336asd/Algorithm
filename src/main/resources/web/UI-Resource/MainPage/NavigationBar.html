@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- <link href="/UI-Resource/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="/UI-Resource/JQuery/jquery.min.js"></script>
+<script src="/UI-Resource/bootstrap-3.3.7/js/bootstrap.min.js"></script>   -->
+<title></title>
+</head>
+<body>
+    <div>
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		    <div class="container-fluid">
+			    <div class="navbar-header">
+			          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavbar">
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>  
+				      </button>
+			        <a class="navbar-brand" href="#">HIKVISION</a>
+			    </div>
+			    <div class="collapse navbar-collapse" id="mainNavbar">
+			        <ul class="nav navbar-nav">
+			            <li class="config"><a href="/hikvision/config">CONFIG</a></li>
+			            <li class="alarm"><a href="/hikvision/alarm">ALARM</a></li>
+			            <li class="Face"><a href="/hikvision/face">FACE</a></li>		
+ 			            <li class="Compare1V1"><a href="/hikvision/compare1V1">1V1</a></li>	
+ 			            <li class="Task"><a href="/hikvision/task">TASK</a></li>	
+ 			            <!-- because the hfpd function is not completed，so just hide it -->
+ 			            <!--  <li class="HFPD"><a href="/hikvision/hfpd">HFPD</a></li>-->	            
+			        </ul>
+			         <ul class="nav navbar-nav navbar-right"> 
+                        <li><a href="/hikvision"><span class="glyphicon glyphicon-log-in"></span>   RELOGIN</a></li> 
+                    </ul> 
+			    </div>
+				<div>
+				   
+				</div> 		    
+		    </div>
+		</nav>
+	</div>
+	<script>
+	    $(document).ready(function(){
+			$('ul.nav > li').each(function(index, item){
+				var class_name = location.pathname.split('/')[2];
+				if($(this).hasClass(class_name)){
+					$(this).addClass("active").siblings().removeClass("active");
+				}
+			});
+		}); 
+	</script>
+</body>
+</html>

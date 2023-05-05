@@ -1,0 +1,56 @@
+{
+   
+	"ipAddress":	"192.168.5.201",
+   
+	"ipv6Address":	"fe80::e2ba:adff:fe82:8a7b",
+   
+	"portNo":	80,
+   
+	"protocol":	"HTTP",
+   
+	"macAddress":	"e0:ba:ad:82:8a:7b",
+   
+	"channelID":	1,
+   
+	"dateTime":	"2022-12-21T11:23:34+08:00",
+   
+	"activePostCount":	1,
+   
+	"eventType":	"AccessControllerEvent",
+   
+	"eventState":	"active",
+   
+	"eventDescription":	"Access Controller Event",
+   
+	"AccessControllerEvent":	{
+      
+		"deviceName":	"Access Controller",
+      
+		"majorEventType":	2,
+      
+		"subEventType":	1024,
+      
+		"verifyNo":	128,
+      
+		"serialNo":	1,
+      
+		"currentVerifyMode":	"invalid",
+      
+		"currentEvent":	false,
+      
+		"frontSerialNo":	0,
+      
+		"attendanceStatus":	"undefined",
+      
+		"statusValue":	0,
+      
+		"mask":	"unknown",
+      
+		"helmet":	"unknown",
+      
+		"purePwdVerifyEnable":	true
+	
+   }
+
+
+}

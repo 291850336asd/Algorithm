@@ -37,6 +37,13 @@ public class TestA {
 
 
     public static void main(String[] args) throws ClassNotFoundException {
+//        byte[] sDeviceIP = new byte[128];
+//        byte[] bytes = "192.168.5.190".getBytes();
+//        for (int i = 0; i < bytes.length; i++) {
+//            sDeviceIP[i] = bytes[i];
+//        }
+//        System.out.println(new String(sDeviceIP));
+//        System.out.println(new String(sDeviceIP).split("\0",2)[0]);
 //        Calendar instance = Calendar.getInstance();
 //        // 操作时间
 //        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -50,11 +57,11 @@ public class TestA {
 //        Class.forName(A.class.getName());
 //        A a = JSON.parseObject("{\"aa\":\"MTIzNDU2AAA4Ywh4fwAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
 //        A a = JSON.parseObject("{\"aa\":\"MDQyOTE4AA4YAH4fwAAAAAAAAAAAAAAAAAAAAEAAAA=\"}", A.class);
-        A a = JSON.parseObject("{\"aa\":\"MDIxNzkzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
-//        A a = JSON.parseObject("{\"aa\":\"r0alcAARsk0ourjUuw90fA=\"}", A.class);
-//        A a = JSON.parseObject("{\"aa\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
-        System.out.println(b2ss(a.getAa()));
-        System.out.println(b2c(a.getAa()));
+//        A a = JSON.parseObject("{\"aa\":\"MDIxNzkzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
+////        A a = JSON.parseObject("{\"aa\":\"r0alcAARsk0ourjUuw90fA=\"}", A.class);
+////        A a = JSON.parseObject("{\"aa\":\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\"}", A.class);
+//        System.out.println(b2ss(a.getAa()));
+//        System.out.println(b2c(a.getAa()));
 //        HashMap<String, String> hashMap = new HashMap<>();
 //        hashMap.put("ss","sdsd121");
 //        System.out.println(JSON.toJSONString(hashMap));

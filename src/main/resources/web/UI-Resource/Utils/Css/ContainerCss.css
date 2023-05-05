@@ -1,0 +1,164 @@
+
+.faceImg{
+    max-width: 120px;
+	max-height: 120px;
+	display: block;
+	margin: 2px 0px 0px -3px;
+	}
+.nameDiv {
+    padding-top: 3px;
+    padding-left: 5px;
+    width: 128px;
+    font-size: 14px;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    top: 126px;
+}
+.imageBackground{
+	background-color:#F5F5F5
+}
+.labelStyle{
+	width: 110px;
+    height: 30px;
+    display: block;
+    margin: 5px 0px 0px 0px;
+	float:left;
+	vertical-align: middle;
+}
+.inputStyle{
+	width: 150px;
+    height: 30px;
+    display: block;
+    margin: 0px 0px 12px 0px;
+    float:left;
+    vertical-align: middle;
+}
+
+.divStyle{
+    width: 260px;
+    height: 45px;
+}
+
+.faceURLInputStyle{ 
+	position:absolute;  
+	width:89px; 
+	height:34px; 
+	display: block;
+	margin-top:6px; 
+	opacity:0;
+	filter:alpha(opacity=0);
+	}
+
+.tab {
+ width: 300px;
+}
+ 
+.tab .tab-nav {
+ height: 30px;
+}
+ 
+.tab .tab-nav li {
+ float: left;
+ margin-right:5px;
+ background-color:#767676;
+ border-radius:3px 3px 0 0;
+}
+ 
+.tab .tab-nav li a{
+ display:block;
+ height:30px;
+ padding:0 20px;
+ color: white;
+ line-height:30px;
+ text-decoration: none;
+}
+ 
+.tab .tab-nav .active {
+ background-color: #fff;
+ 
+}
+ 
+.tab .tab-nav .active a{
+ color: #777;
+}
+ 
+.tab .content-wrap{
+ background-color: white;
+ padding:5px;
+ height:200px
+}
+ 
+.tab .content-wrap .content-item {
+ position:absolute;
+ height: 200px;
+ display: none;
+}
+ 
+.tab .content-wrap .current {
+ height: 200px;
+ display: block;
+}
+
+.table-editable {
+  position: relative;
+}
+.table-editable .glyphicon {
+  font-size: 20px;
+}
+
+.table-remove {
+  color: #700;
+  cursor: pointer;
+}
+.table-remove:hover {
+  color: #f00;
+}
+
+
+.table-add {
+  color: #070;
+  cursor: pointer;
+
+.table-add:hover {
+  color: #0b0;
+}
+
+    .nameDiv {
+        padding-top: 3px;
+        padding-left: 5px;
+        width: 128px;
+        font-size: 14px;
+        word-break: break-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: absolute;
+        top: 126px;
+    }
+    .imageBackground{
+        background-color:#F5F5F5
+    }
+    .labelStyle{
+        width: 80px;
+        height: 30px;
+        display: block;
+        margin: 2px 0px 0px -3px;
+        float:left;
+    }
+    .inputStyle{
+        width: 150px;
+        height: 30px;
+        display: block;
+        margin: 2px 0px 0px -3px;
+        float:left;
+    }
+    .divStyle{
+    width:  300px;
+    height: 50px;
+}
+ #ex1Slider .slider-selection {
+         background: #BABABA;
+     }
